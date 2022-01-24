@@ -52,5 +52,10 @@ namespace Api.Services
             result.Data = data;
             return result;
         }
+
+        internal async System.Threading.Tasks.Task<int> GetTaskTotalSizeByFiter(List<Filter> filters)
+        {
+            return await this.taskRepository.GetTotalSize(filters);
+        }
     }
 }

@@ -59,45 +59,51 @@ namespace Api.Controllers
             PagingResponse<List<Task>> tasks = await this.taskService.GetTaskByPaging(pagingRequest);
             return tasks;
         }
-
-    [HttpPost("create-task")]
-    public async System.Threading.Tasks.Task<Task> CreateTask([FromBody] Task task)
-    {
-        Task createdTask = await this.taskService.CreateTask(task);
-        return createdTask;
-    }
-
-    [HttpDelete("delete-task")]
-    public async System.Threading.Tasks.Task<Task> DeleteTaskById(int id)
-    {
-        return await this.taskService.DeleteTaskById(id);
-    }
-
-    [HttpPut("update-task")]
-    public async System.Threading.Tasks.Task<ActionResult<Task>> UpdateTask(int id, Task task)
-    {
-        try
+        [HttpGet("get-task-total-size-by-filter")]
+        public async System.Threading.Tasks.Task<int> GetTaskTotalSizeByFiter(List<Filter> filters)
         {
-            if (id != task.Id)
-            {
-                return BadRequest("Task ID mismatch");
-            }
-
-            Task taskToUpdate = await taskService.GetTaskById(id);
-
-            if (taskToUpdate == null)
-            {
-                return NotFound($"Task with Id = {id} not found");
-            }
-
-            return await taskService.UpdateTask(task);
+            int totalSize = await this.taskService.GetTaskTotalSizeByFiter(filters);
+            return totalSize;
         }
-        catch (Exception)
+
+        [HttpPost("create-task")]
+        public async System.Threading.Tasks.Task<Task> CreateTask([FromBody] Task task)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError,
-                "Error updating data");
+            Task createdTask = await this.taskService.CreateTask(task);
+            return createdTask;
         }
-    }
 
-}
+        [HttpDelete("delete-task")]
+        public async System.Threading.Tasks.Task<Task> DeleteTaskById(int id)
+        {
+            return await this.taskService.DeleteTaskById(id);
+        }
+
+        [HttpPut("update-task")]
+        public async System.Threading.Tasks.Task<ActionResult<Task>> UpdateTask(int id, Task task)
+        {
+            try
+            {
+                if (id != task.Id)
+                {
+                    return BadRequest("Task ID mismatch");
+                }
+
+                Task taskToUpdate = await taskService.GetTaskById(id);
+
+                if (taskToUpdate == null)
+                {
+                    return NotFound($"Task with Id = {id} not found");
+                }
+
+                return await taskService.UpdateTask(task);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error updating data");
+            }
+        }
+
+    }
 }
