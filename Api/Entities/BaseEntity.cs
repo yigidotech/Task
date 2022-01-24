@@ -14,5 +14,10 @@ namespace Api.Entities
         public DateTime LastUpdateDate { get; set; }
         [Column(name: "created_by")]
         public int CreatedBy { get; set; }
+        [Column(name: "is_active")]
+        public bool IsActive { get; set; }
+        [Column(name: "is_deleted")]
+        public bool IsDeleted { get; set; }
+
     }
 }
