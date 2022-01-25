@@ -1,0 +1,46 @@
+<div class="container">
+    <div class="alert alert-danger" *ngIf="showAlert" role="alert">
+        This is a danger alert—check it out!
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+
+            <table class="table table-sm  table-striped " *ngIf="tasks">
+                <thead>
+                    <tr>
+                        <th *ngFor="let column of taskColumns">{{column}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let task of tasks; let i = index">
+                        <!-- <td>{{i+1}}</td> -->
+                        <td *ngIf="task">
+                            <!-- <input class="form-check-input" type="checkbox"  [value]="task.isCompleted"
+                            id="flexCheckChecked"> -->
+                            <mat-checkbox value="task.isCompleted"></mat-checkbox>
+                        </td>
+                        <td>{{task.id}}</td>
+                        <td>{{task.insertDate}}</td>
+                        <td>{{task.lastUpdateDate}}</td>
+                        <td>{{task.createdBy}}</td>
+                        <td>{{task.isActive}}</td>
+                        <td>{{task.isDeleted}}</td>
+                        <td>{{task.guid}}</td>
+                        <td>{{task.title}}</td>
+                        <td>{{task.description}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <ng-template #elseTasks>
+                <div class="spinner-border text-primary" role="status" *ngIf="taskLoading">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </ng-template>
+        </div>
+        <div class="col-md-3">
+
+        </div>
+
+    </div>
+
+</div>

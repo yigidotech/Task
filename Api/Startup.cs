@@ -53,7 +53,11 @@ namespace Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseCors(x => x
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .SetIsOriginAllowed(orijin => true)
+                        .AllowCredentials());
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

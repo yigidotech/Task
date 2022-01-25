@@ -12,5 +12,7 @@ namespace Api.Entities
         public string Title { get; set; }
         [Column(name: "description")]
         public string Description { get; set; }
+        [Column(name: "is_completed")]
+        public bool IsCompleted { get; set; }
     }
 }
