@@ -8,18 +8,18 @@ export class TaskModel {
     guid!: string;
     title!: string;
     description!: string;
-    isCompleted!:boolean;
+    isCompleted!:any;
     static columns = [
-        "IS COMPLETED"
-        ,"ID"
-        , "INSERT DATE"
-        , "LAST UPDATE DATE"
-        , "CREATED BY"
-        , "IS ACTIVE"
-        , "IS DELETED"
-        , "GUID"
+        // "IS COMPLETED"
+        // ,"ID"
+        // , "INSERT DATE"
+        // , "LAST UPDATE DATE"
+        // , "CREATED BY"
+        // , "IS ACTIVE"
+        // , "IS DELETED"
+        // , "GUID"
         , "TITLE"
-        , "DESCRIPTION"
+        // , "DESCRIPTION"
     ]
     // static icolumns:IColumnModel[] =[
     //     new this.icolumns()

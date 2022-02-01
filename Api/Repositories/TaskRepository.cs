@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Api.Contexts;
 using Api.Entities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Api.Repositories
@@ -51,7 +52,9 @@ namespace Api.Repositories
                 updateTask.InsertDate = task.InsertDate;
                 updateTask.LastUpdateDate = DateTime.Now;
                 updateTask.Title = task.Title;
-
+                updateTask.IsActive = task.IsActive;
+                updateTask.IsCompleted = task.IsCompleted;
+                updateTask.IsDeleted = task.IsDeleted;
                 await _taskContext.SaveChangesAsync();
 
                 return updateTask;
@@ -122,6 +125,23 @@ namespace Api.Repositories
             }
             return query;
         }
+
+        internal async System.Threading.Tasks.Task<ActionResult<Task>> ChangeTaskCompleted(Task task)
+        {
+            Task updateTask = await this._taskContext.Tasks.Where(x => x.Id == task.Id).FirstOrDefaultAsync();
+            if (updateTask != null)
+            {
+                updateTask.IsCompleted = task.IsCompleted;
+                this._taskContext.Tasks.Update(updateTask);
+                this._taskContext.SaveChanges();
+            }
+            else
+            {
+
+            }
+            return updateTask;
+        }
+
         internal async System.Threading.Tasks.Task<List<Task>> GetTaskByPaging(int page, int pageSize, List<Filter> filters)
         {
             List<Task> result;
@@ -137,7 +157,7 @@ namespace Api.Repositories
             return result;
         }
 
-        public async System.Threading.Tasks.Task<Task> GetTaskById(int id)
+        public async System.Threading.Tasks.Task<Task> GetTaskById(long id)
         {
             return await _taskContext.Tasks.FirstOrDefaultAsync(t => t.Id == id);
         }
@@ -160,6 +180,19 @@ namespace Api.Repositories
             try
             {
                 tasks = await this._taskContext.Tasks.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return tasks;
+        }
+        public async System.Threading.Tasks.Task<List<Task>> GetAllTasksByIsCompleted(bool isCompleted)
+        {
+            List<Task> tasks = null;
+            try
+            {
+                tasks = await this._taskContext.Tasks.Where(x => x.IsCompleted == isCompleted).ToListAsync();
             }
             catch (Exception ex)
             {

@@ -1,0 +1,63 @@
+<ng-container *ngIf="task">
+    <div class="alert alert-danger"  *ngIf="showAlert" role="alert">
+        {{alertMessage}}
+    </div>
+    <mat-card>
+        <mat-card-title>
+            <h1 style="text-align: center;">Görev</h1>
+        </mat-card-title>
+        <mat-card-actions class="col-md-12">
+            <button mat-raised-button (click)="updateTask()" color="primary">Save</button>
+            <button mat-raised-button (click)="deleteTask()" style="float: right;" color="warn">Delete</button>
+        </mat-card-actions>
+        <mat-card-content>
+
+            <mat-form-field appearance="fill" class="col-md-12">
+                <mat-label>Id</mat-label>
+                <input [(ngModel)]="task.id" matInput>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="col-md-12">
+                <mat-label>Created By</mat-label>
+                <input [(ngModel)]="task.createdBy" matInput>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="col-md-12">
+                <mat-label>Title</mat-label>
+                <input [(ngModel)]="task.title" matInput>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="col-md-12">
+                <mat-label>Description</mat-label>
+                <textarea rows="1" [(ngModel)]="task.description" matInput></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="col-md-12">
+                <mat-label>Guid</mat-label>
+                <input [(ngModel)]="task.guid" matInput>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="col-md-12">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="datepicker" [(ngModel)]="task.insertDate">
+                <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                <mat-datepicker #datepicker>
+                </mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" class="col-md-12">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="datepickerLastUpdateDate" [(ngModel)]="task.lastUpdateDate">
+                <mat-datepicker-toggle matSuffix [for]="datepickerLastUpdateDate"></mat-datepicker-toggle>
+                <mat-datepicker #datepickerLastUpdateDate>
+                </mat-datepicker>
+            </mat-form-field>
+
+            <mat-checkbox [(ngModel)]="task.isActive" class="col-md-12">Is Active</mat-checkbox>
+            <mat-checkbox [(ngModel)]="task.isDeleted" class="col-md-12">Is Deleted</mat-checkbox>
+
+        </mat-card-content>
+    </mat-card>
+
+
+</ng-container>

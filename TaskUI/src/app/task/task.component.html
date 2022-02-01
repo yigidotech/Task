@@ -1,46 +1,47 @@
-<div class="container">
-    <div class="alert alert-danger" *ngIf="showAlert" role="alert">
-        This is a danger alert—check it out!
+<!-- <div class="container"> -->
+<div class="alert alert-danger" *ngIf="showAlert" role="alert">
+    This is a danger alert—check it out!
+</div>
+<div class="row">
+    <div class="col-md-9">
+        <div class="col-md-12">
+            <mat-form-field appearance="fill" class="col-md-3">
+                <mat-label>Title</mat-label>
+                <input matInput>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="col-md-9">
+                <mat-label>Description</mat-label>
+                <textarea rows="1" matInput></textarea>
+            </mat-form-field>
+        </div>
+        <mat-list>
+            <h1>Yapılacaklar</h1>
+            <ng-container *ngFor="let task of uncompletedTasks;let i =index">
+                <mat-list-item (click)="rowClicked(task)" [style.backgroundColor]="getColor(i)">
+                    <mat-checkbox (change)="completeChanged($event,task)" [checked]="task.isCompleted" value="task">
+                    </mat-checkbox>
+                    <div mat-line><strong>{{task.title}}</strong></div>
+                    <div mat-line> {{task.description}} </div>
+                </mat-list-item>
+            </ng-container>
+
+            <mat-divider></mat-divider>
+
+            <h1>Tamamlananlar</h1>
+            <ng-container *ngFor="let task of completedTasks;let i =index">
+                <mat-list-item (click)="rowClicked(task)" [style.backgroundColor]="getComplatedColor(i)">
+                    <mat-checkbox (change)="completeChanged($event,task)" [checked]="task.isCompleted" value="task">
+                    </mat-checkbox>
+                    <div mat-line><strong>{{task.title}}</strong></div>
+                    <div mat-line> {{task.description}} </div>
+                </mat-list-item>
+            </ng-container>
+        </mat-list>
     </div>
-    <div class="row">
-        <div class="col-md-9">
-
-            <table class="table table-sm  table-striped " *ngIf="tasks">
-                <thead>
-                    <tr>
-                        <th *ngFor="let column of taskColumns">{{column}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let task of tasks; let i = index">
-                        <!-- <td>{{i+1}}</td> -->
-                        <td *ngIf="task">
-                            <!-- <input class="form-check-input" type="checkbox"  [value]="task.isCompleted"
-                            id="flexCheckChecked"> -->
-                            <mat-checkbox value="task.isCompleted"></mat-checkbox>
-                        </td>
-                        <td>{{task.id}}</td>
-                        <td>{{task.insertDate}}</td>
-                        <td>{{task.lastUpdateDate}}</td>
-                        <td>{{task.createdBy}}</td>
-                        <td>{{task.isActive}}</td>
-                        <td>{{task.isDeleted}}</td>
-                        <td>{{task.guid}}</td>
-                        <td>{{task.title}}</td>
-                        <td>{{task.description}}</td>
-                    </tr>
-                </tbody>
-            </table>
-            <ng-template #elseTasks>
-                <div class="spinner-border text-primary" role="status" *ngIf="taskLoading">
-                    <span class="sr-only">Loading...</span>
-                </div>
-            </ng-template>
-        </div>
-        <div class="col-md-3">
-
-        </div>
-
+    <div class="col-md-3">
+        <app-task-update-partial [task]="selectedTask"></app-task-update-partial>
     </div>
 
 </div>
+
+<!-- </div> -->

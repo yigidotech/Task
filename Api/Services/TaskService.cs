@@ -5,6 +5,7 @@ using Api.Repositories;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Services
 {
@@ -24,6 +25,10 @@ namespace Api.Services
         {
             return await this.taskRepository.GetAllTasks();
         }
+        public async System.Threading.Tasks.Task<List<Task>> GetAllTasksByIsCompleted(bool isCompleted)
+        {
+            return await this.taskRepository.GetAllTasksByIsCompleted(isCompleted);
+        }
 
         public async System.Threading.Tasks.Task<Task> DeleteTaskById(int id)
         {
@@ -35,7 +40,7 @@ namespace Api.Services
             return await this.taskRepository.UpdateTask(task);
         }
 
-        public async System.Threading.Tasks.Task<Task> GetTaskById(int id)
+        public async System.Threading.Tasks.Task<Task> GetTaskById(long id)
         {
             return await this.taskRepository.GetTaskById(id);
         }
@@ -57,5 +62,11 @@ namespace Api.Services
         {
             return await this.taskRepository.GetTotalSize(filters);
         }
+
+        internal async System.Threading.Tasks.Task<ActionResult<Task>> ChangeTaskCompleted(Task task)
+        {
+            return await this.taskRepository.ChangeTaskCompleted(task);
+        }
+
     }
 }

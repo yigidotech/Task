@@ -53,6 +53,13 @@ namespace Api.Controllers
             return tasks;
         }
 
+        [HttpGet("get-all-tasks-by-is-completed")]
+        public async System.Threading.Tasks.Task<List<Task>> GetAllTasksByIsCompleted(bool isCompleted)
+        {
+            List<Task> tasks = await this.taskService.GetAllTasksByIsCompleted(isCompleted);
+            return tasks;
+        }
+
         [HttpGet("get-task-by-paging")]
         public async System.Threading.Tasks.Task<PagingResponse<List<Task>>> GetTaskByPaging(PagingRequest pagingRequest)
         {
@@ -105,5 +112,18 @@ namespace Api.Controllers
             }
         }
 
+        [HttpPut("change-task-complete")]
+        public async System.Threading.Tasks.Task<ActionResult<Task>> ChangeTaskComplete(Task task)
+        {
+            try
+            {
+                return await taskService.ChangeTaskCompleted(task);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error updating data");
+            }
+        }
     }
 }
