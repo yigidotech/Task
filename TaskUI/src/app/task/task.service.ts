@@ -28,8 +28,11 @@ export class TaskService {
     return this.http.delete(environment.apiUrl + '/Task/delete-task?id=' + id);
   }
 
+  public createdTask(task: TaskModel): Observable<any> {
+    return this.http.post(environment.apiUrl + '/Task/create-task', task);
+  }
+
   public changeTaskComplete(task: TaskModel): Observable<any> {
     return this.http.put(environment.apiUrl + '/Task/change-task-complete', task);
   }
-
 }

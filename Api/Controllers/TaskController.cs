@@ -7,9 +7,11 @@ using Microsoft.Extensions.Logging;
 using Api.Services;
 using Api.Entities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Cors;
 
 namespace Api.Controllers
 {
+    [EnableCors]
     [ApiController]
     [Route("[controller]")]
     public class TaskController : ControllerBase
