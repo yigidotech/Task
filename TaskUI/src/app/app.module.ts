@@ -16,12 +16,23 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
+import { UserService } from './user/user.service';
+import { MatMenuModule } from '@angular/material/menu';
+import { LoginGuard } from './user/login-guard';
+import { CommonModule } from '@angular/common';
+import { UserComponent } from './user/user.component';
+import { LoginComponent } from './login/login.component';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatIconModule } from '@angular/material/icon';
 @NgModule({
   declarations: [
     AppComponent,
     TaskComponent,
     TaskUpdatePartialComponent
+    , UserComponent, LoginComponent, SignInComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +41,6 @@ import { MatDividerModule } from '@angular/material/divider';
     , MatTableModule, NgbModule
     , HttpClientModule
     , MatCheckboxModule
-    , MatFormFieldModule
     , FormsModule
     , MatFormFieldModule
     , MatInputModule
@@ -39,8 +49,13 @@ import { MatDividerModule } from '@angular/material/divider';
     , MatButtonModule
     , MatListModule
     , MatDividerModule
+    , CommonModule
+    , MatTooltipModule
+    , MatMenuModule
+    , MatIconModule
+    , MatToolbarModule
   ],
-  providers: [],
+  providers: [UserService, LoginGuard],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

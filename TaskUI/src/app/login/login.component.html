@@ -1,0 +1,28 @@
+<div class="row" style="margin-top:20px;">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="alert" [class]="alertType" *ngIf="showAlert" role="alert">
+            {{alertMessage}}
+        </div>
+        <mat-card>
+            <mat-card-title style="text-align: center;">
+                <h1>TASK GİRİŞ</h1>
+            </mat-card-title>
+            <mat-card-content>
+                <mat-form-field apperance="fill" class="col-md-12">
+                    <mat-label>Kullanıcı Adı</mat-label>
+                    <input matInput type="text" [(ngModel)]="loginRequest.username">
+                </mat-form-field>
+                <mat-form-field apperance="fill" class="col-md-12">
+                    <mat-label>Şifre</mat-label>
+                    <input matInput type="password" [(ngModel)]="loginRequest.password">
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button type="submit" color="primary" (click)="login()">Giriş Yap</button>
+                <button mat-raised-button color="warn" style="float: right;" (click)="signIn()">Kayıt Ol</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+    <div class="col-md-4"></div>
+</div>

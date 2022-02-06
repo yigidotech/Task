@@ -9,12 +9,14 @@ using Api.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Api.Controllers
 {
     [EnableCors]
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
@@ -25,6 +27,7 @@ namespace Api.Controllers
             this.userService = new UserService(taskContext, configuration);
         }
 
+        [AllowAnonymous]
         [HttpPost("sign-in")]
         public async System.Threading.Tasks.Task<ActionResult<User>> SignIn([FromBody] User user)
         {
@@ -40,10 +43,11 @@ namespace Api.Controllers
             }
         }
 
-        [HttpGet("login")]
-        public async System.Threading.Tasks.Task<LoginResponse> Login(string username, string password)
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public async System.Threading.Tasks.Task<LoginResponse> Login([FromBody] LoginRequest loginRequest)
         {
-            return await this.userService.Login(username, password);
+            return await this.userService.Login(loginRequest);
         }
 
     }

@@ -28,24 +28,32 @@ namespace Api.Repositories
             User createdUser = null;
             try
             {
-                DateTime now = DateTime.Now;
-                user.InsertDate = now;
-                user.LastUpdateDate = now;
-                this._taskContext.Users.Add(user);
-                await this._taskContext.SaveChangesAsync();
-                createdUser = this._taskContext.Users.Where(x => x.Username == user.Username && x.Password == user.Password).FirstOrDefault();
+                User hasUser = await this._taskContext.Users.Where(x => x.Username == user.Username).FirstOrDefaultAsync();
+                if (hasUser == null)
+                {
+                    DateTime now = DateTime.Now;
+                    user.InsertDate = now;
+                    user.LastUpdateDate = now;
+                    this._taskContext.Users.Add(user);
+                    await this._taskContext.SaveChangesAsync();
+                    createdUser = this._taskContext.Users.Where(x => x.Username == user.Username && x.Password == user.Password).FirstOrDefault();
+                }
+                else
+                {
+                    throw new Exception("Kullanıcı adı zaten kullanılıyor.");
+                }
             }
             catch (Exception ex)
             {
-
+                throw new Exception($"İşlem sırasında hata alındı. {ex.Message}");
             }
             return createdUser;
         }
 
-        internal async Task<LoginResponse> Login(string username, string password)
+        internal async Task<LoginResponse> Login(LoginRequest loginRequest)
         {
             LoginResponse loginResponse = null;
-            User user = await this._taskContext.Users.Where(x => x.Username == username && x.Password == password).FirstOrDefaultAsync();
+            User user = await this._taskContext.Users.Where(x => x.Username == loginRequest.Username && x.Password == loginRequest.Password).FirstOrDefaultAsync();
             if (user != null)
             {
                 loginResponse = new LoginResponse();

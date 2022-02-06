@@ -22,9 +22,9 @@ namespace Api.Services
             return await this.userRepository.CreateUser(user);
         }
 
-        internal async System.Threading.Tasks.Task<LoginResponse> Login(string username, string password)
+        internal async System.Threading.Tasks.Task<LoginResponse> Login(LoginRequest loginRequest)
         {
-            return await this.userRepository.Login(username, password);
+            return await this.userRepository.Login(loginRequest);
         }
 
     }

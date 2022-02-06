@@ -1,1 +1,19 @@
-<router-outlet></router-outlet>
+<mat-toolbar>
+    <span>Task</span>
+    <button *ngIf="user" style="float: right;" mat-icon-button [matMenuTriggerFor]="menu"
+        aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+        <span *ngIf="user">{{user.username}}</span>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="logout()" *ngIf="user">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>Çıkış Yap</span>
+        </button>
+    </mat-menu>
+</mat-toolbar>
+<div class="row">
+    <div class="col-md-12">
+        <router-outlet></router-outlet>
+    </div>
+</div>
